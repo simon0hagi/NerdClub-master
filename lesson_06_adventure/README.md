@@ -8,8 +8,8 @@ Hier wird das erste eigene kleine Spiel programmiert. Dabei sind der Kreativitä
 * Strategien entwicklen wie verschiedene Abläufe zusammen wirken können
 
 ## Hausaufgeben
-* [ ] Kämpfe bis Robert Olaf besigt hat (nutze hierfür eine While Schleife)
-* [ ] Nach dem Kampf schau nach ob deine Gesundheit unter 20 ist und nimm einen Trank zu dir
-* [ ] Wenn du einen Gegner besiegt hast, füge einen Trank zu deinem Inventar hinzu
-* [ ] Füge der Charakter Klasse eine Methode zum Trank nehmen hinzu
-* [ ] Zeige in der toString methode an wieviele Tränke dein Held hat
+* [x] Kämpfe bis Robert Olaf besigt hat (nutze hierfür eine While Schleife)
+* [x] Nach dem Kampf schau nach ob deine Gesundheit unter 20 ist und nimm einen Trank zu dir
+* [x] Wenn du einen Gegner besiegt hast, füge einen Trank zu deinem Inventar hinzu
+* [x] Füge der Charakter Klasse eine Methode zum Trank nehmen hinzu
+* [x] Zeige in der toString methode an wieviele Tränke dein Held hat
