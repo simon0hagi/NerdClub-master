@@ -1,6 +1,6 @@
 void main(List<String> arguments) {
-  Character robert =
-      Character('Robert', [Item('Axt', 15)], [Item('Herzcontainer', 100)]);
+  Character robert = Character(
+      'Robert', [Item('Axt', 15)], [Item('Herzcontainer', 100)], Attitude.evil);
   Character olaf = Character(
     'Olaf',
     [Item('Schwert', 20), Item('Bogen', 10)], /*[Item('Miraculix', 20)]*/
@@ -18,16 +18,6 @@ void main(List<String> arguments) {
     print('******************');
     n++;
   }
-
-  //X TODO: Nach dem Kampf schau nach ob deine Gesundheit unter 20 ist und nimm einen Trank
-  /* if (!robert.defeated && !olaf.defeated) {
-    print('Olaf hat gewonnen und hat $olaf, Robert hat $robert');
-  } else if (!robert.defeated && (olaf._health <= 0)) {
-    print('Robert hat gewonnen und hat $robert, Olaf hat $olaf');
-  } else {
-    print(
-        'Gleichstand, beide haben verloren. Robert hat $robert und Olaf hat $olaf');
-  } */
 }
 
 class Character {
@@ -96,29 +86,9 @@ class Character {
           break;
       }
     }
-    /*  // if no health not able to fight
-    if (_health < 20) {
-      drinkElixir();
-    }
-    if (enemy._health < 20) {
-      enemy.drinkElixir();
-    }
-    if (_health <= 0) return;
-    // if enemy has no health get his items and stop fighting
-    if (enemy.defeated) {
-      receiveItem(enemy);
-      enemy.looseItems();
-      _elixirs.add(Item('Powerpilz', 20));
-      return;
-    }
-    enemy.calculateDamage(this);
-    if (enemy._health > 0) {
-      calculateDamage(enemy);
-    } else {
-      receiveItem(enemy);
-      enemy.looseItems();
-    } */
   }
+
+  Attitude _attitude = Attitude.good;
 
   void drinkElixir() {
     if (_elixirs.isEmpty || _health > 20) {
@@ -143,7 +113,8 @@ class Character {
     _health = _health - enemy._damage;
   }
 
-  Character(this._name, this._weapons, [this._elixirs = const []]);
+  Character(this._name, this._weapons,
+      [this._elixirs = const [], this._attitude = Attitude.good]);
 
   final String _name;
   int _health = 100;
@@ -177,10 +148,16 @@ class Character {
 
   @override
   String toString() {
-    // TODO: Zeige an wieviele Tränke dein Held hat
-    return '$_name $_damage Schaden und $_health Gesundheit und Heiltränke, die $_healing auffüllen können ${_elixirs.length}';
+    switch (_attitude) {
+      case Attitude.good:
+        return 'Der Held $_name hat $_damage Schaden und $_health Gesundheit, ${_elixirs.length} Heiltränke, ($_healing)';
+      case Attitude.evil:
+        return 'Der Bösewicht $_name hat $_damage Schaden und $_health Gesundheit, ${_elixirs.length} Heiltränke, ($_healing)';
+    }
   }
 }
+
+enum Attitude { evil, good }
 
 class Item {
   Item(this._name, this._value);
