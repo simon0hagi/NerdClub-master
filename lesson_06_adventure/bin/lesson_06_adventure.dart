@@ -20,20 +20,83 @@ void main(List<String> arguments) {
   }
 
   //X TODO: Nach dem Kampf schau nach ob deine Gesundheit unter 20 ist und nimm einen Trank
-  if (!robert.defeated && !olaf.defeated) {
+  /* if (!robert.defeated && !olaf.defeated) {
     print('Olaf hat gewonnen und hat $olaf, Robert hat $robert');
   } else if (!robert.defeated && (olaf._health <= 0)) {
     print('Robert hat gewonnen und hat $robert, Olaf hat $olaf');
   } else {
     print(
         'Gleichstand, beide haben verloren. Robert hat $robert und Olaf hat $olaf');
-  }
+  } */
 }
 
 class Character {
   // TODO: Wenn Gegner besiegt füge Trank hinzu
   void fight(Character enemy) {
-    // if no health not able to fight
+    int _state = 1;
+
+    while (_state != 0) {
+      //wir kämpfen bis _state=0 ist
+      switch (_state) {
+        case 1: //Lebt der Angreifer noch?
+          if (defeated) {
+            _state = 0;
+          } else {
+            _state++;
+          }
+          break;
+        case 2: //Lebt der Gegner noch?
+          if (enemy.defeated) {
+            _state = 0;
+          } else {
+            _state++;
+          }
+          break;
+        case 3:
+          enemy.calculateDamage(this);
+          if (enemy.defeated) {
+            _state = 31;
+          } else {
+            _state = 32;
+          }
+          break;
+        case 31: //enemy defeated
+          receiveItem(enemy);
+          enemy.looseItems();
+          drinkElixir();
+          _elixirs.add(Item('Superpilz', 50));
+          _state = 0;
+          break;
+
+        case 32:
+          calculateDamage(enemy);
+          if (defeated) {
+            _state = 321;
+          } else {
+            _state = 322;
+          }
+          break;
+        case 321: //enemy defeated us gets items and drinks an elixir
+          enemy.receiveItem(this);
+          looseItems();
+          enemy.drinkElixir();
+          enemy._elixirs.add(Item('Superpilz', 50));
+          _state = 0;
+          break;
+        case 322:
+          enemy.drinkElixir();
+          drinkElixir();
+          _state = 0;
+          break;
+        default:
+          print('unknown state $_state');
+          _state = 0;
+          enemy._health = 0;
+          _health = 0;
+          break;
+      }
+    }
+    /*  // if no health not able to fight
     if (_health < 20) {
       drinkElixir();
     }
@@ -54,10 +117,8 @@ class Character {
     } else {
       receiveItem(enemy);
       enemy.looseItems();
-    }
+    } */
   }
-
-  //X TODO: Füge Methode hinzu zum Heiltrank nehmen.
 
   void drinkElixir() {
     if (_elixirs.isEmpty || _health > 20) {
@@ -117,7 +178,7 @@ class Character {
   @override
   String toString() {
     // TODO: Zeige an wieviele Tränke dein Held hat
-    return '$_damage Schaden und $_health Gesundheit und Heiltränke, die $_healing auffüllen können ${_elixirs.length}';
+    return '$_name $_damage Schaden und $_health Gesundheit und Heiltränke, die $_healing auffüllen können ${_elixirs.length}';
   }
 }
 
