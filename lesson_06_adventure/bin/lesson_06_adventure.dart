@@ -96,7 +96,7 @@ class Character {
   @override
   String toString() {
     // TODO: Zeige an wieviele Tränke dein Held hat
-    return '$_damage Schaden und $_health Gesundheit und Heiltränke, die $_healing auffüllen können';
+    return '$_damage Schaden und $_health Gesundheit und Heiltränke, die $_healing auffüllen können ${_elixirs.length}';
   }
 }
 
