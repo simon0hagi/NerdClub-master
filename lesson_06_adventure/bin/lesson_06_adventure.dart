@@ -1,12 +1,9 @@
 void main(List<String> arguments) {
-  Character robert = Character(
-      'Robert', [Item('Axt', 15)], [Item('Herzcontainer', 100)], Attitude.evil);
+  Character robert = Character('Robert', [Item('Axt', 15)], [Item('Herzcontainer', 100)], Attitude.evil);
   Character olaf = Character(
     'Olaf',
     [Item('Schwert', 20), Item('Bogen', 10)], /*[Item('Miraculix', 20)]*/
   );
-
-  //X TODO: Kämpfe bis robert Olaf besiegt hat (While-Schleife)
 
   int n = 1;
 
@@ -21,7 +18,6 @@ void main(List<String> arguments) {
 }
 
 class Character {
-  // TODO: Wenn Gegner besiegt füge Trank hinzu
   void fight(Character enemy) {
     int _state = 1;
 
@@ -113,8 +109,7 @@ class Character {
     _health = _health - enemy._damage;
   }
 
-  Character(this._name, this._weapons,
-      [this._elixirs = const [], this._attitude = Attitude.good]);
+  Character(this._name, this._weapons, [this._elixirs = const [], this._attitude = Attitude.good]);
 
   final String _name;
   int _health = 100;
