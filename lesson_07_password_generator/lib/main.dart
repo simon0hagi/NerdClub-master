@@ -37,7 +37,6 @@ class _MyHomePageState extends State<MyHomePage> {
 
   void _generatePassword(String masterPW) {
     setState(() {
-      //TODO: Website aus Textfeld lesen
       _password = Crypt.sha256(_website.text, salt: _controller.text)
           .hash
           .substring(0, 10);
@@ -48,7 +47,6 @@ class _MyHomePageState extends State<MyHomePage> {
   void initState() {
     super.initState();
     _controller = TextEditingController();
-    //TODO: Delete for release
 
     _website = TextEditingController();
   }
@@ -75,10 +73,8 @@ class _MyHomePageState extends State<MyHomePage> {
                     labelText: 'Website'),
               ),
             ),
-
             Container(
               margin: EdgeInsets.all(8.0),
-              //TODO: TextField für Website
               child: TextField(
                 controller: _controller,
                 autocorrect: false,
@@ -90,14 +86,15 @@ class _MyHomePageState extends State<MyHomePage> {
                     labelText: 'Master Password'),
               ),
             ),
-
             ElevatedButton(
               // übergeben von Funktion mit Parameter
               onPressed: () => _generatePassword(_controller.text),
               child: Text('Generate Password'),
             ),
-            //TODO: Text formatieren https://api.flutter.dev/flutter/painting/TextStyle-class.html
-            Text(_password),
+            Text(
+              _password,
+              style: TextStyle(height: 5, fontSize: 30),
+            ),
           ],
         ),
       ),
