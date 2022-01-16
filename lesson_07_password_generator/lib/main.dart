@@ -32,13 +32,15 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   late TextEditingController _controller;
+  late TextEditingController _website;
   String _password = 'Nichts';
 
   void _generatePassword(String masterPW) {
     setState(() {
       //TODO: Website aus Textfeld lesen
-      _password =
-          Crypt.sha256('web.com', salt: _controller.text).hash.substring(0, 10);
+      _password = Crypt.sha256(_website.text, salt: _controller.text)
+          .hash
+          .substring(0, 10);
     });
   }
 
@@ -47,7 +49,8 @@ class _MyHomePageState extends State<MyHomePage> {
     super.initState();
     _controller = TextEditingController();
     //TODO: Delete for release
-    _controller.text = '12345';
+
+    _website = TextEditingController();
   }
 
   @override
@@ -59,6 +62,20 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Center(
         child: Column(
           children: [
+            Container(
+              margin: EdgeInsets.all(8.0),
+              child: TextField(
+                controller: _website,
+                autocorrect: false,
+                obscureText: false,
+                enableSuggestions: false,
+                decoration: const InputDecoration(
+                    border: OutlineInputBorder(),
+                    hintText: 'Enter Website',
+                    labelText: 'Website'),
+              ),
+            ),
+
             Container(
               margin: EdgeInsets.all(8.0),
               //TODO: TextField für Website
@@ -73,6 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
                     labelText: 'Master Password'),
               ),
             ),
+
             ElevatedButton(
               // übergeben von Funktion mit Parameter
               onPressed: () => _generatePassword(_controller.text),
